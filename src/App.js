@@ -10,7 +10,7 @@ const AppContainer = styled.div`
     margin-left: auto;
     margin-right: auto;
     width: ${calWidth}px;
-    margin-top: calc(50vh - ${rowHeight*6}px);
+    margin-top: calc(50vh - ${rowHeight*5}px);
 `;
 
 class App extends Component {

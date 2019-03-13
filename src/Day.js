@@ -9,6 +9,7 @@ const Unit = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    background-color: ${props => props.grey ? 'grey' : 'none'}
 `;
 
 const DayOf = styled.p`
@@ -38,8 +39,8 @@ const numToDayOfWeek = (number) => {
     }
 }
 
-const Day = ({ weekDay, date }) => (
-    <Unit>
+const Day = ({ weekDay, date, grey }) => (
+    <Unit grey={grey}>
         <DayOf>{numToDayOfWeek(weekDay)}</DayOf>
         <Date>{date.toString()}</Date>
     </Unit>
