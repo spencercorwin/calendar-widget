@@ -28,6 +28,7 @@ class App extends Component {
       dateToDisplay: new Date(),
       events: [
         {date: new Date(), event: 'Haircut'},
+        {date: new Date(), event: 'Write code to eat the world'},
         {date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1), event: 'Soccer game'},
         {date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1), event: 'Pickup kids'},
         {date: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1), event: 'Make dinner'},
@@ -44,15 +45,15 @@ class App extends Component {
   }
 
   incrementMonth() {
-    this.setState({
-      date: this.state.date.month(this.state.date.month() + 1)
-    })
+    this.setState(state => ({
+      date: state.date.month(state.date.month() + 1)
+    }))
   }
 
   decrementMonth() {
-    this.setState({
-      date: this.state.date.month(this.state.date.month() - 1)
-    })
+    this.setState(state => ({
+      date: state.date.month(state.date.month() - 1)
+    }))
   }
 
   setToToday() {
@@ -69,7 +70,7 @@ class App extends Component {
   }
 
   render() {
-    const eventsToPass = this.state.events.filter(event => event.date.getDate() === this.state.dateToDisplay.getDate());
+    const eventsToPass = this.state.events.filter(event => event.date.getDate() === this.state.dateToDisplay.getDate() && event.date.getMonth() === this.state.dateToDisplay.getMonth() && event.date.getFullYear() === this.state.dateToDisplay.getFullYear());
     return (
       <AppContainer>
         <TopBar today={this.setToToday} incYear={this.incrementYear} decYear={this.decementYear} incMonth={this.incrementMonth} decMonth={this.decrementMonth} month={this.state.date.month()} year={this.state.date.year()}/>
