@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { calWidth, rowHeight } from './utils/constants';
+import { calWidth, rowHeight, hoverColor } from './utils/constants';
 
 const Unit = styled.div`
     width: ${calWidth/7}px;
@@ -9,7 +9,11 @@ const Unit = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background-color: ${props => props.grey ? 'grey' : 'none'}
+    background-color: ${({ grey }) => grey ? 'hsl( 11, 0%, 90%)' : 'none'};
+    color: ${({ highlight }) => highlight ? 'red' : 'none'};
+    &:hover {
+        background-color: ${({ setDate }) => setDate};
+    }
 `;
 
 const DayOf = styled.p`
@@ -22,7 +26,15 @@ const Date = styled.p`
     text-align: center;
     font-size: 12px;
     padding: 0;
+    margin-top: 0;
+    margin-bottom: -10px;
+`;
+
+const Dots = styled.div`
     margin: 0;
+    padding: 0;
+    background-color: none;
+    text-align: center;
 `;
 
 const numToDayOfWeek = (number) => {
@@ -39,11 +51,22 @@ const numToDayOfWeek = (number) => {
     }
 }
 
-const Day = ({ weekDay, date, grey }) => (
-    <Unit grey={grey}>
-        <DayOf>{numToDayOfWeek(weekDay)}</DayOf>
-        <Date>{date.toString()}</Date>
-    </Unit>
-)
+const Day = ({ weekDay, date, month, year, grey, highlight, setDate, events }) => {
+    const dots = [];
+    for (let i = 0; i < events; i++) {
+        if (i > 6) {
+            break;
+        }
+        dots.push('.')
+    }
+    const dotsToRender = dots.join('');
+    return (
+        <Unit setDate={setDate ? hoverColor : 'none'} grey={grey} highlight={highlight} onClick={setDate ? () => setDate(date, month, year) : ''}>
+            <DayOf>{numToDayOfWeek(weekDay)}</DayOf>
+            <Date>{date.toString()}</Date>
+            <Dots>{dotsToRender}</Dots>
+        </Unit>
+    )
+}
 
 export default Day;
